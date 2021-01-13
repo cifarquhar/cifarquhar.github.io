@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+
+<!--
+  portfolYOU Jekyll theme by Youssef Raafat
+  Free for personal and commercial use under the MIT license
+  https://github.com/YoussefRaafatNasry/portfolYOU
+-->
+
+<html lang="en" class="h-100">
+
+<head>
+
+  
+  
+
+  
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Building a game with Spring and Electron - Part 1">
+  <meta property="og:description" content="Learning how to make Rock, Paper, Scissors the hard way">
+
+  <title>Building a game with Spring and Electron - Part 1</title>
+  <meta name="description" content="Learning how to make Rock, Paper, Scissors the hard way">
+
+  
+  <link rel="shortcut icon" type="image/x-icon" href="/assets/favicon.ico">
+
+  <!-- Font Awesome CDN -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.10.0/css/all.css">
+
+  <!-- Bootstrap CSS CDN -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+
+  <!-- Animate CSS CDN -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.css" type="text/css"/>
+  
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="/assets/css/style.css" type="text/css">
+
+</head>
+
+
+<body class="d-flex flex-column h-100">
+
+  <main class="flex-shrink-0 container mt-5">
+  <nav class="navbar navbar-expand-lg navbar-light">
+
+  <a class="navbar-brand" href="/"><h5><b>Tales of the Over-Thought</b></h5></a>
+
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+    <div class="navbar-nav ml-auto"><a class="nav-item nav-link " href="/projects/">Projects</a>
+
+      <a class="nav-item nav-link active" href="/blog/">Blog</a>
+
+      <a class="nav-item nav-link " href="/about/">About</a>
+
+      
+
+    </div>
+  </div>
+
+</nav>
+  <div class="col-lg-10 mx-auto mt-5 post">
+  <h1><b>Building a game with Spring and Electron - Part 1</b></h1>
+
+<p class="post-metadata text-muted">
+  09 December 2020 -  
+  <b>3 mins read time</b>
+
+  <br>Tags: 
+    
+    <a class="text-decoration-none no-underline" href="/blog/tags#spring">
+      <span class="tag badge badge-pill text-primary border border-primary">Spring</span>
+    </a>
+    
+    <a class="text-decoration-none no-underline" href="/blog/tags#electron">
+      <span class="tag badge badge-pill text-primary border border-primary">Electron</span>
+    </a>
+    
+    <a class="text-decoration-none no-underline" href="/blog/tags#java">
+      <span class="tag badge badge-pill text-primary border border-primary">Java</span>
+    </a>
+    
+    <a class="text-decoration-none no-underline" href="/blog/tags#javascript">
+      <span class="tag badge badge-pill text-primary border border-primary">JavaScript</span>
+    </a>
+    
+    <a class="text-decoration-none no-underline" href="/blog/tags#tutorial">
+      <span class="tag badge badge-pill text-primary border border-primary">Tutorial</span>
+    </a>
+    
+    <a class="text-decoration-none no-underline" href="/blog/tags#games">
+      <span class="tag badge badge-pill text-primary border border-primary">Games</span>
+    </a>
+    </p>
+
+<h2 id="setting-the-scene">Setting the scene…</h2>
+
+<p>I absolutely love over-engineering things. I know that’s maybe a controversial opinion, but hear me out. I don’t work day-to-day as a developer, I teach complete beginners how to code. That means a lot of “can we do X with Y?”-type questions which often cover scenarios I hadn’t ever considered. I do a lot of poking and prodding around the edges of what we teach and that’s grown into a desire to do a lot of poking and prodding at the edges of my own knowledge.</p>
+
+<p>Which is why I enjoy overthinking a problem. When I try to build stuff like the app I’ll talk about here I’m not trying to streamline it and shoot for maximum efficiency. Instead I’m trying to see if I <em>can</em> make something work, and hopefully break a few things while I’m at it to see how they work…</p>
+
+<p>That brings me to here: a short series of posts describing how I went about building an app to play Rock-Paper-Scissors against the computer. This will ultimately grow into something else, but before I go wild with the bells and whistles I need to prove the concept.</p>
+
+<h2 id="tech-choices">Tech choices</h2>
+
+<p>The front end was an easy choice for me. I’ve been interested in learning about <a href="https://www.electronjs.org/">Electron</a> for a while so that went straight to the front of the queue. I could have stuck with a browser-based game here, but that would have been less exciting for me.</p>
+
+<p>Decisions about the back end were harder. I use <a href="https://spring.io/">Spring</a> when I’m teaching so that’s where my instincts led me at first, but I’ve also recently heard about <a href="https://quarkus.io/">Quarkus</a> and I’m keen to learn more about it. The big difference in speed (Quarkus is <strong>much</strong> faster) was a big temptation, but I decided to stick with Spring. I enjoy pushing myself to learn new tech, but it’s also important to take it one step at a time. Learning two new things at once has the potential to turn into a debugging nightmare!</p>
+
+<h2 id="what-makes-this-special">What makes this special?</h2>
+
+<p>So far, so straight-forward: it’s a JS app talking to a Java app, right? It would be, but I had a couple of extra steps planned:</p>
+
+<ul>
+  <li>I don’t want the player to have to be connected to the internet in order to play. That means my server running the game logic can’t be hosted online, it has to be local.</li>
+  <li>…which means the user has to start the Spring app on their computer in order to play. Not insurmountable, but a big step up from simply clicking an icon to start an app.</li>
+  <li>But can I tie the two together, so that the Spring app starts and stops when the Electron app does?</li>
+</ul>
+
+<p>And that’s the big challenge for me here. Perhaps there’s a much simpler way of doing it, but this series will describe the way I found to do it and reflect on what I might change next time.</p>
+
+<h2 id="whats-the-end-game-here">What’s the end game here?</h2>
+
+<p>I said I’d over-engineer it and for such a simple game I <em>definitely</em> have! What I’ve learned from this will feed in to other projects though, which was always the big picture here. I’ve got ideas for other apps I want to build where the Java back end will be doing something much more complex so while I could have done everything here in JavaScript and not had to worry about a separate server, I think it’s been a worthwhile experience.</p>
+
+<h2 id="whats-next">What’s next?</h2>
+
+<ul>
+  <li>Part 2 - Setting up the back end in Spring</li>
+  <li>Part 3 - Adding the game logic</li>
+  <li>Part 4 - Building my first Electron app</li>
+  <li>Part 5 - Starting and stopping the processes together</li>
+  <li>Part 6 - Preparing the finished app</li>
+</ul>
+
+
+
+</div>
+  </main>
+
+  <footer class="mt-auto py-3 text-center">
+
+  <small class="text-muted mb-2">
+    <i class="fas fa-code"></i> with <i class="fas fa-heart"></i>
+    by <strong>Colin Farquhar</strong>
+  </small>
+
+  <div class="container-fluid justify-content-center"><a class="social mx-1"  href="mailto:cifarquhar@gmail.com"
+       style="color: #6c757d"
+       onMouseOver="this.style.color='#db4437'"
+       onMouseOut="this.style.color='#6c757d'">
+      <i class="fas fa-envelope fa-1x"></i>
+    </a><a class="social mx-1"  href="https://www.github.com/cifarquhar"
+       style="color: #6c757d"
+       onMouseOver="this.style.color='#333333'"
+       onMouseOut="this.style.color='#6c757d'">
+      <i class="fab fa-github fa-1x"></i>
+    </a><a class="social mx-1"  href="https://www.twitter.com/colinf87"
+       style="color: #6c757d"
+       onMouseOver="this.style.color='#1da1f2'"
+       onMouseOut="this.style.color='#6c757d'">
+      <i class="fab fa-twitter fa-1x"></i>
+    </a>
+
+</div><small id="attribution">
+    theme <a href="https://github.com/YoussefRaafatNasry/portfolYOU">portfolYOU</a>
+  </small>
+  
+</footer>
+  
+  <!-- GitHub Buttons -->
+<script async defer src="https://buttons.github.io/buttons.js"></script>
+
+<!-- jQuery CDN -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<!-- Popper.js CDN -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
+
+<!-- Bootstrap JS CDN -->
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+<!-- wow.js CDN & Activation -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.js"></script>
+<script> new WOW().init(); </script>
+
+<!-- Initialize all tooltips -->
+<script>
+$(function () {
+    $('[data-toggle="tooltip"]').tooltip()
+})
+</script>
+
+</body>
+
+</html>
