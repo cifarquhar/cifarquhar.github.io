@@ -57,7 +57,8 @@ collections:
 
 
 ### Disqus ###
-disqus: talesoftheoverthought                          # Your website Shortname on disqus
+disqus: 
+  shortname: talesoftheoverthought                          # Your website Shortname on disqus
 
 
 ### Analytics ###
