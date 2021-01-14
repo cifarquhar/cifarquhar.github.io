@@ -4,6 +4,7 @@ tags: [Introduction]
 style: 
 color: 
 description: Setting off on a blogging adventure...
+comments: true
 ---
 
 I absolutely love over-engineering things. I know that's maybe a controversial opinion, but hear me out. I don't work day-to-day as a developer, I teach complete beginners how to code. That means a lot of "can we do X with Y?"-type questions which often cover scenarios I hadn't ever considered. I do a lot of poking and prodding around the edges of what we teach and that's grown into a desire to do a lot of poking and prodding at the edges of my own knowledge.
