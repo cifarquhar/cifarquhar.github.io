@@ -19,13 +19,13 @@ Handling the JSON going back and forth will require a couple of models to repres
 
 By the end of this article our back end will look like this:
 
-[!](../images/file_structure.png)
+![file structure](../images/file_structure.png)
 
 ## Dependencies
 
 Since we don't have a database to worry about, or any authentication, we only really need the Spring Web dependency. I'm going to add Spring Boot DevTools for some quality-of-life improvements, but that one's entirely optional.
 
-[!](../images/dependencies.png)
+![dependencies](../images/dependencies.png)
 
 ## Building the payloads
 Let's start by setting up the models to represent the input and the result. We'll create a payloads package and inside it two classes: `PlayerSubmission` and `GameResult`.
