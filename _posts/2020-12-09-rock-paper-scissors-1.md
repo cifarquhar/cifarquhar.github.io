@@ -36,7 +36,7 @@ I said I'd over-engineer it and for such a simple game I *definitely* have! What
 
 ## What's next?
 
-- Part 2 - Setting up the back end in Spring
+- [Part 2](/blog/rock-paper-scissors-2) - Setting up the back end in Spring
 - Part 3 - Adding the game logic
 - Part 4 - Building my first Electron app
 - Part 5 - Starting and stopping the processes together
